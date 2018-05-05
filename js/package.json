@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "NODE_ENV=development parcel watch index.html ",
+    "watch": "NODE_ENV=development parcel watch index.html & cd dist; python -m http.server 8000 ",
     "build": "NODE_ENV=production parcel build index.html  --no-minify --public-url ./",
     "link-local": "yalc link"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@tensorflow/tfjs-core": "link:.yalc/@tensorflow/tfjs-core",
+    "@tensorflow/tfjs-layers": "link:.yalc/@tensorflow/tfjs-layers",
     "seedrandom": "2.4.3"
   },
   "devDependencies": {
