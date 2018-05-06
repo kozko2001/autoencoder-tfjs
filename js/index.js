@@ -5,8 +5,11 @@ const loadModel = async () => {
     return model;
 }
 
+const setMessage = (message) => {
+    document.querySelector('#message').innerHTML = message;
+}
+
 const drawTensor = (tensor, id) => {
-    console.log('drawing...');
     const i = tensor.reshape([28, 28, 1]);
     tf.toPixels(i, document.getElementById(`canvas-${id}`));
 }
@@ -44,17 +47,18 @@ const loadMnist = async () => {
 }
 
 const init = async() => {
-    console.log('loading mnist');
+    setMessage('Loading image...');
     const image = await loadMnist()
 
-    console.log('loading model');
+    setMessage('Loading model...');
     const model = await loadModel();
 
+    setMessage('Applying model to the image');
     const result = model.apply(image);
     drawTensor(image, 'original');
     drawTensor(result, 'result');
 }
 
 init().then(() => {
-    console.log('init complete...');
+    setMessage('Work done');
 })

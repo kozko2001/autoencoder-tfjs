@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "NODE_ENV=development parcel watch --no-hmr index.html & cd dist; python -m http.server 8000 ",
-    "build": "NODE_ENV=production parcel build index.html  --no-minify --public-url ./",
+    "build": "NODE_ENV=production parcel build index.html  -o index.html --no-minify --public-url ./",
     "link-local": "yalc link"
   },
   "author": "",
