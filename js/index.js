@@ -1,5 +1,6 @@
 import * as tf from '@tensorflow/tfjs-core';
 import * as tflayer from '@tensorflow/tfjs-layers';
+
 const loadModel = async () => {
     const model = await tflayer.loadModel('./model/model.json');
     return model;
@@ -46,6 +47,35 @@ const loadMnist = async () => {
     return t;
 }
 
+const encode = (model, tensor) => {
+    const layers = model.layers;
+
+    for (let index = 1; index < layers.length; index++) {
+        const layer = layers[index];
+        tensor = layer.apply(tensor);
+        
+        if(layer.name === 'max_pooling2d_6') {
+            return tensor;
+        }
+    }
+
+    return tensor;
+}
+
+const decode = (model, tensor) => {
+    const layers = model.layers;
+
+    const firstLayer = model.layers.findIndex((l) => l.name === 'conv2d_11')
+
+    for (let index = firstLayer; index < layers.length; index++) {
+        const layer = layers[index];
+        
+        tensor = layer.apply(tensor);
+    }
+
+    return tensor;
+}
+
 const init = async() => {
     setMessage('Loading image...');
     const image = await loadMnist()
@@ -56,7 +86,13 @@ const init = async() => {
     setMessage('Applying model to the image');
     const result = model.apply(image);
     drawTensor(image, 'original');
-    drawTensor(result, 'result');
+    
+    const encodedTensor = encode(model, image); 
+    const decodedTensor = decode(model, encodedTensor);
+
+    console.log('encoded tensor is....', encodedTensor);
+    console.log('encoded tensor is....', decodedTensor);
+    drawTensor(decodedTensor, 'result');
 }
 
 init().then(() => {

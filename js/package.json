@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "NODE_ENV=development parcel watch --no-hmr index.html & cd dist; python -m http.server 8000 ",
+    "watch": "NODE_ENV=development parcel watch --no-hmr index.html & static-server -p 8000 dist/",
     "build": "NODE_ENV=production parcel build index.html  -o index.html --no-minify --public-url ./",
     "link-local": "yalc link"
   },
@@ -19,6 +19,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "parcel-bundler": "^1.8.1",
+    "static-server": "^2.2.1",
     "yalc": "^1.0.0-pre.22"
   }
 }
