@@ -1,5 +1,9 @@
 import * as tf from '@tensorflow/tfjs-core';
 import * as tflayer from '@tensorflow/tfjs-layers';
+import _ from 'lodash';
+
+let model;
+let encodedTensor;
 
 const loadModel = async () => {
     const model = await tflayer.loadModel('./model/model.json');
@@ -13,6 +17,10 @@ const setMessage = (message) => {
 const drawTensor = (tensor, id) => {
     const i = tensor.reshape([28, 28, 1]);
     tf.toPixels(i, document.getElementById(`canvas-${id}`));
+}
+
+const drawIntermediateRepresentation = (tensor, id) => {
+    tf.toPixels(tensor.clipByValue(0, 1), document.getElementById(`canvas-${id}`));
 }
 
 const loadMnist = async () => {
@@ -76,25 +84,42 @@ const decode = (model, tensor) => {
     return tensor;
 }
 
+const extract_channel = (tensor, channel) => tensor.slice([0, 0, channel], [4, 4, 1]);
+
+const extract_channels = (tensor) => _.range(tensor.shape[2]).map(channel_idx => extract_channel(tensor, channel_idx));
+
 const init = async() => {
-    setMessage('Loading image...');
-    const image = await loadMnist()
-
     setMessage('Loading model...');
-    const model = await loadModel();
-
-    setMessage('Applying model to the image');
-    const result = model.apply(image);
-    drawTensor(image, 'original');
-    
-    const encodedTensor = encode(model, image); 
-    const decodedTensor = decode(model, encodedTensor);
-
-    console.log('encoded tensor is....', encodedTensor);
-    console.log('encoded tensor is....', decodedTensor);
-    drawTensor(decodedTensor, 'result');
+    model = await loadModel();
+    setMessage('Model loaded, select and image and press encode');
 }
 
-init().then(() => {
-    setMessage('Work done');
-})
+window.encodeAction = () => {
+    const f = async () => {
+        setMessage('Loading image...');
+        const image = await loadMnist()
+
+        encodedTensor = encode(model, image);
+        const encoded = encodedTensor.squeeze();
+        const channels = extract_channels(encoded)
+                        .forEach((tensor, idx) => drawIntermediateRepresentation(tensor, `encoded${idx}`));
+        
+
+        drawTensor(image, 'original')
+    }
+    f().then(() => {});
+}
+
+window.decodeAction = () => {
+    const f = async () => {
+        setMessage('Loading image...');
+        const image = await loadMnist()
+
+        const decoded = decode(model, encodedTensor);
+        drawTensor(decoded, 'result')
+    }
+    f().then(() => {});
+}
+
+init().then(() => { })
+

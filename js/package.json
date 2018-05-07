@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "NODE_ENV=development parcel watch --no-hmr index.html & static-server -p 8000 dist/",
+    "watch": "NODE_ENV=development parcel watch --no-hmr index.html",
+    "http": "static-server -p 8000 dist/",
     "build": "NODE_ENV=production parcel build index.html  -o index.html --no-minify --public-url ./",
     "link-local": "yalc link"
   },
@@ -13,6 +14,7 @@
   "dependencies": {
     "@tensorflow/tfjs-core": "link:.yalc/@tensorflow/tfjs-core",
     "@tensorflow/tfjs-layers": "link:.yalc/@tensorflow/tfjs-layers",
+    "lodash": "^4.17.10",
     "seedrandom": "2.4.3"
   },
   "devDependencies": {
