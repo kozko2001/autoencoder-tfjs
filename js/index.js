@@ -1,6 +1,7 @@
 import * as tf from '@tensorflow/tfjs-core';
 import * as tflayer from '@tensorflow/tfjs-layers';
 import _ from 'lodash';
+import './index.css'
 
 let model;
 let encodedTensor;

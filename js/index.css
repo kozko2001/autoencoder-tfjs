@@ -1,0 +1,89 @@
+.center {
+    margin: auto;
+}
+
+.wrapper {
+    width: 600px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 100px;
+}
+
+.select-image {
+    grid-column: 2 / span 2;
+    grid-row: 1;
+    width: 200px;
+}
+
+.select-image select {
+    width: 200px;
+}
+
+.encode-button {
+    grid-column: 2 / span 2;
+    grid-row: 2;
+}
+
+.original-image {
+    grid-column:  2 / span 2;
+    grid-row: 3 / span 3;
+}
+
+.decode-button {
+    grid-column: 2 / span 2;
+    grid-row: 8;
+}
+
+.result-image {
+    grid-column:  2 / span 2;
+    grid-row: 9 / span 2;
+}
+
+
+#canvas-encoded0 {
+    grid-column: 1;
+    grid-row: 6;
+    margin: auto;
+}
+
+#canvas-encoded1 {
+    grid-column: 2;
+    grid-row: 6;
+    margin: auto;
+}
+
+#canvas-encoded2 {
+    grid-column: 3;
+    grid-row: 6;
+    margin: auto;
+}
+
+#canvas-encoded3 {
+    grid-column: 4;
+    grid-row: 6;
+    margin: auto;
+}
+
+#canvas-encoded4 {
+    grid-column: 1;
+    grid-row: 7;
+    margin: auto;
+}
+
+#canvas-encoded5 {
+    grid-column: 2;
+    grid-row: 7;
+    margin: auto;
+}
+
+#canvas-encoded6 {
+    grid-column: 3;
+    grid-row: 7;
+    margin: auto;
+}
+
+#canvas-encoded7 {
+    grid-column: 4;
+    grid-row: 7;
+    margin: auto;
+}
