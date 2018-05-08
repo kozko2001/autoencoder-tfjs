@@ -1,6 +1,6 @@
 <html>
   <head>
-  </head>
+  <link rel="stylesheet" href="js.99eb6fbe.css"></head>
   <body>
     <h3>MNIST autoencoder using TensorFlow JS</h3>
     <style>
@@ -10,11 +10,42 @@
     </style>
 
     <div id="message"></div>
-    <div id="images"></div>
-    <canvas id="canvas-original" style="width: 200px; height: 200px"> </canvas>
-  
-    <canvas id="canvas-result" style="width: 200px; height: 200px"> </canvas>    
-    
-    <script src="js.ba3f199c.js"></script>
+
+    <div class="wrapper center">
+      <div class="select-image center">
+        <select>
+            <option value="5">5</option>
+        </select>
+      </div>
+
+      <div class="encode-button center">
+          <button type="button" onclick="javascript:encodeAction();">Encode</button>        
+      </div>
+
+      <div class="original-image center">
+          <canvas id="canvas-original" style="width: 200px; height: 200px"> </canvas>
+      </div>
+
+      <canvas id="canvas-encoded0" class="encoded-channel" style="width: 80px; height: 80px"> </canvas>
+      <canvas id="canvas-encoded1" class="encoded-channel" style="width: 80px; height: 80px"> </canvas>
+      <canvas id="canvas-encoded2" class="encoded-channel" style="width: 80px; height: 80px"> </canvas>
+      <canvas id="canvas-encoded3" class="encoded-channel" style="width: 80px; height: 80px"> </canvas>
+      
+      <canvas id="canvas-encoded4" style="width: 80px; height: 80px"> </canvas>
+      <canvas id="canvas-encoded5" style="width: 80px; height: 80px"> </canvas>
+      <canvas id="canvas-encoded6" style="width: 80px; height: 80px"> </canvas>
+      <canvas id="canvas-encoded7" style="width: 80px; height: 80px"> </canvas>
+
+      <div class="decode-button center">
+          <button type="button" onclick="javascript:decodeAction();">Decode</button>        
+      </div>
+
+
+      <div class="result-image center">
+          <canvas id="canvas-result" style="width: 200px; height: 200px"> </canvas>
+      </div>
+    </div>
+
+    <script src="js.2f431966.js"></script>
   </body>
 </html>
