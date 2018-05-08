@@ -15,6 +15,11 @@ const setMessage = (message) => {
     document.querySelector('#message').innerHTML = message;
 }
 
+const getImageId = () => {
+    const e = document.querySelector('#image-selector');
+    return e.options[e.selectedIndex].value;
+}
+
 const drawTensor = (tensor, id) => {
     const i = tensor.reshape([28, 28, 1]);
     tf.toPixels(i, document.getElementById(`canvas-${id}`));
@@ -24,7 +29,7 @@ const drawIntermediateRepresentation = (tensor, id) => {
     tf.toPixels(tensor.clipByValue(0, 1), document.getElementById(`canvas-${id}`));
 }
 
-const loadMnist = async () => {
+const loadMnist = async (image_id) => {
     const img = new Image();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
@@ -48,7 +53,7 @@ const loadMnist = async () => {
 
             resolve(new Float32Array(data));
         };
-        img.src = 'mnist/5_0.png';
+        img.src = `mnist/${image_id}.png`;
     });
 
     const d = await imgRequest;
@@ -98,7 +103,8 @@ const init = async() => {
 window.encodeAction = () => {
     const f = async () => {
         setMessage('Loading image...');
-        const image = await loadMnist()
+        const image_id = getImageId();
+        const image = await loadMnist(image_id);
 
         encodedTensor = encode(model, image);
         const encoded = encodedTensor.squeeze();
@@ -113,9 +119,6 @@ window.encodeAction = () => {
 
 window.decodeAction = () => {
     const f = async () => {
-        setMessage('Loading image...');
-        const image = await loadMnist()
-
         const decoded = decode(model, encodedTensor);
         drawTensor(decoded, 'result')
     }
